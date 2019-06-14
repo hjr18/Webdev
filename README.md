@@ -27,5 +27,4 @@ Visuals/themes/colours etc are up to the teams (there are multiple resources onl
 Questions/Further explanation on any of the above/the project as a whole can be sent through to Engineering team/Sharon.
 
 It's up to the team to drive progress amongst themselves and choose leaders for set periods of time, delegation of tasks etc.
-After the two weeks – GUIs will be presented to Senior Management who will provide feedback
-
+After the two weeks – GUIs will be presented to Senior Management who will provide feedback.
