@@ -28,3 +28,4 @@ Questions/Further explanation on any of the above/the project as a whole can be 
 
 It's up to the team to drive progress amongst themselves and choose leaders for set periods of time, delegation of tasks etc.
 After the two weeks – GUIs will be presented to Senior Management who will provide feedback
+
