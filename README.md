@@ -1,6 +1,6 @@
 # Webdev
 
-Project to be completed by 21st June by Joel, David, Vic, Jonathon and Hannah
+Project to be completed by 21st June by Joel, David, Vic, Jonathan and Hannah
 
 ### Requirements to be presented ###
 
