@@ -1,0 +1,55 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.page-header {
+	height: auto;
+	padding-top: 10px;
+	padding-bottom: 5px;
+	background-color: #EAF9F4;
+}
+
+.aquaq-logo {
+	align: centre;
+}
+
+.nav-buttons {
+	background-color: #D6FCEF;
+	border: none;
+	color: #70B7A0;
+	padding: 10px;
+}
+
+.nav-button-holder {
+	background-color: #D6FCEF;
+	border-top-style: solid;
+	border-color: #BDE9DB;
+	color: #70B7A0;
+	padding: 3px;
+}
+
+.nav-buttons:hover {
+	background-color: #BDE9DB;
+}
+
