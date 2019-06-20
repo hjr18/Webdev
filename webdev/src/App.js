@@ -9,6 +9,9 @@ import axios from 'axios';
 import { Tabs } from '@yazanaabed/react-tabs';
 import Table1 from './components/Table1';
 import Table2 from './components/Table2';
+import Table3 from './components/Table3';
+import lastPriceTab from './components/lastPriceTab';
+import volumeBySymTab from './components/volumeBySymTab';
 import './react-tabs.css';
 
 /*var options = {
@@ -48,12 +51,21 @@ class App extends Component {
 	
 	<div className="nav-button-holder" >
       <Tabs activeTab={{ id: "Table1" }} style={styles} >
-	  <Tabs.Tab id="Table1" title="Quote" className="nav-buttons">
+	  <Tabs.Tab id="Table1" title="Table1" className="nav-buttons">
 	  <Table1 />
 	  </Tabs.Tab>
-	  <Tabs.Tab id="Table2" title="Trade">
+	  <Tabs.Tab id="Table2" title="Table2">
 	  <Table2 />
 	  </Tabs.Tab>
+          <Tabs.Tab id="Table3" title="Table3">
+              <Table3 />
+          </Tabs.Tab>
+          <Tabs.Tab id="lastPriceTab" title="lastPriceTab">
+              <lastPriceTab />
+          </Tabs.Tab>
+          <Tabs.Tab id="volumeBySymTab" title="volumeBySymTab">
+              <volumeBySymTab />
+          </Tabs.Tab>
 	  </Tabs>
 	</div>
 	 
