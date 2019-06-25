@@ -46,6 +46,7 @@ class Table2 extends Component {
             .then(response => response.data);
     }
 
+
     updateData() {
         this.getData("select max avgs price by sym from trade")
             .then(data => {
@@ -55,6 +56,7 @@ class Table2 extends Component {
                 }
             });
     }
+
 
 
     render() {

@@ -5,7 +5,7 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import axios from 'axios';
 
 
-class SymVol extends Component {
+class LowDay extends Component {
 
 
     constructor(props) {
@@ -13,9 +13,9 @@ class SymVol extends Component {
         this.dataStore=[];
         this.state = {
             columnDefs: [{
-                headerName: "Sym", field: "sym", sortable: true, filter: true, resizable: true
+                headerName: "X", field: "x", sortable: true, filter: true, resizable: true
             }, {
-                headerName: "Max Price", field: "price", sortable: true, filter: true, resizable: true
+                headerName: "Cnt", field: "cnt", sortable: true, filter: true, resizable: true
             }],
             dataStore:[]
 
@@ -47,7 +47,7 @@ class SymVol extends Component {
     }
 
     updateData() {
-        this.getData("select max avgs price by sym from trade")
+        this.getData("select from (select cnt:count i by x:date from trade where date >.z.d-7) where cnt=min cnt")
             .then(data => {
                 if (data.success) {
                     console.log("data success=true");
@@ -62,7 +62,7 @@ class SymVol extends Component {
         return (
             <React.Fragment>
                 <div>
-                    SymVol
+                    Trade
                 </div>
                 <div
                     className="ag-theme-balham"
@@ -83,4 +83,4 @@ class SymVol extends Component {
 }
 
 
-export default SymVol;
+export default LowDay;

@@ -5,7 +5,7 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import axios from 'axios';
 
 
-class SymVol extends Component {
+class HighestTradedSym extends Component {
 
 
     constructor(props) {
@@ -15,7 +15,7 @@ class SymVol extends Component {
             columnDefs: [{
                 headerName: "Sym", field: "sym", sortable: true, filter: true, resizable: true
             }, {
-                headerName: "Max Price", field: "price", sortable: true, filter: true, resizable: true
+                headerName: "Size", field: "size", sortable: true, filter: true, resizable: true
             }],
             dataStore:[]
 
@@ -24,7 +24,7 @@ class SymVol extends Component {
     };
 
     options = {
-        url: 'https://192.168.1.57:8140/executeQuery',
+        url: 'https://192.168.1.57:8139/executeQuery',
         auth: {
             username: 'user',
             password: 'pass',
@@ -47,7 +47,7 @@ class SymVol extends Component {
     }
 
     updateData() {
-        this.getData("select max avgs price by sym from trade")
+        this.getData("select from (select sum size by sym from trade) where size=max size")
             .then(data => {
                 if (data.success) {
                     console.log("data success=true");
@@ -62,7 +62,7 @@ class SymVol extends Component {
         return (
             <React.Fragment>
                 <div>
-                    SymVol
+                    Trade
                 </div>
                 <div
                     className="ag-theme-balham"
@@ -83,4 +83,4 @@ class SymVol extends Component {
 }
 
 
-export default SymVol;
+export default HighestTradedSym;

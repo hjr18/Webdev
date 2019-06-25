@@ -5,7 +5,7 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import axios from 'axios';
 
 
-class volumeBySymTab extends Component {
+class LeastTradeSym extends Component {
 
 
     constructor(props) {
@@ -24,7 +24,7 @@ class volumeBySymTab extends Component {
     };
 
     options = {
-        url: 'https://192.168.1.57:8139/executeQuery',
+        url: 'https://192.168.1.57:8140/executeQuery',
         auth: {
             username: 'user',
             password: 'pass',
@@ -47,7 +47,7 @@ class volumeBySymTab extends Component {
     }
 
     updateData() {
-        this.getData("select sum size by sym from trade")
+        this.getData("select from (select sum size by sym from trade where date>.z.d-7) where size=min size")
             .then(data => {
                 if (data.success) {
                     console.log("data success=true");
@@ -58,7 +58,7 @@ class volumeBySymTab extends Component {
 
 
     render() {
-
+        console.log(this.dataStore);
         return (
             <React.Fragment>
                 <div>
@@ -83,4 +83,4 @@ class volumeBySymTab extends Component {
 }
 
 
-export default volumeBySymTab;
+export default LeastTradeSym;

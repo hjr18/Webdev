@@ -12,3 +12,16 @@
     padding: 10px;
     text-align: left;
 }
+
+.nav-buttons {
+    background-color: #D6FCEF;
+    border-bottom-style: solid;
+    border-right-style: solid;
+    border-color: #BDE9DB;
+    color: #70B7A0;
+    padding: 10px;
+}
+
+.nav-buttons:hover {
+    background-color: #BDE9DB;
+}

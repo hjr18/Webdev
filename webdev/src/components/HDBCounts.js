@@ -5,7 +5,7 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import axios from 'axios';
 
 
-class SymVol extends Component {
+class HDBCounts extends Component {
 
 
     constructor(props) {
@@ -13,10 +13,11 @@ class SymVol extends Component {
         this.dataStore=[];
         this.state = {
             columnDefs: [{
-                headerName: "Sym", field: "sym", sortable: true, filter: true, resizable: true
+                headerName: "colCount", field: "colCount", sortable: true, filter: true, resizable: true
             }, {
-                headerName: "Max Price", field: "price", sortable: true, filter: true, resizable: true
+                headerName: "Date", field: "date", sortable: true, filter: true, resizable: true
             }],
+
             dataStore:[]
 
         }
@@ -47,7 +48,7 @@ class SymVol extends Component {
     }
 
     updateData() {
-        this.getData("select max avgs price by sym from trade")
+        this.getData("select colCount:count i by date from trade where date >.z.d-7")
             .then(data => {
                 if (data.success) {
                     console.log("data success=true");
@@ -83,4 +84,4 @@ class SymVol extends Component {
 }
 
 
-export default SymVol;
+export default HDBCounts;

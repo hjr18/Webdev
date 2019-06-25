@@ -5,7 +5,7 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import axios from 'axios';
 
 
-class lastPriceTab extends Component {
+class HighDay extends Component {
 
 
     constructor(props) {
@@ -13,9 +13,9 @@ class lastPriceTab extends Component {
         this.dataStore=[];
         this.state = {
             columnDefs: [{
-                headerName: "Sym", field: "sym", sortable: true, filter: true, resizable: true
+                headerName: "X", field: "x", sortable: true, filter: true, resizable: true
             }, {
-                headerName: "Price", field: "price", sortable: true, filter: true, resizable: true
+                headerName: "Cnt", field: "cnt", sortable: true, filter: true, resizable: true
             }],
             dataStore:[]
 
@@ -24,7 +24,7 @@ class lastPriceTab extends Component {
     };
 
     options = {
-        url: 'https://192.168.1.57:8139/executeQuery',
+        url: 'https://192.168.1.57:8140/executeQuery',
         auth: {
             username: 'user',
             password: 'pass',
@@ -47,7 +47,7 @@ class lastPriceTab extends Component {
     }
 
     updateData() {
-        this.getData("select last price by sym from trade")
+        this.getData("select from (select cnt:count i by x:date from trade where date >.z.d-7) where cnt=max cnt")
             .then(data => {
                 if (data.success) {
                     console.log("data success=true");
@@ -83,4 +83,4 @@ class lastPriceTab extends Component {
 }
 
 
-export default lastPriceTab;
+export default HighDay;

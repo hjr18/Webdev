@@ -5,7 +5,7 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import axios from 'axios';
 
 
-class hdb-SymVol extends Component {
+class LastPriceTab extends Component {
 
 
     constructor(props) {
@@ -15,7 +15,7 @@ class hdb-SymVol extends Component {
             columnDefs: [{
                 headerName: "Sym", field: "sym", sortable: true, filter: true, resizable: true
             }, {
-                headerName: "Max Price", field: "price", sortable: true, filter: true, resizable: true
+                headerName: "Last Price", field: "price", sortable: true, filter: true, resizable: true
             }],
             dataStore:[]
 
@@ -47,7 +47,7 @@ class hdb-SymVol extends Component {
     }
 
     updateData() {
-        this.getData("select max avgs price by sym from trade")
+        this.getData("select last price by sym from trade")
             .then(data => {
                 if (data.success) {
                     console.log("data success=true");
@@ -83,4 +83,4 @@ class hdb-SymVol extends Component {
 }
 
 
-export default hdb-SymVol;
+export default LastPriceTab;

@@ -36,7 +36,11 @@
 
 .nav-buttons {
 	background-color: #D6FCEF;
-	border: none;
+	border-bottom-style: solid;
+	border-right-style: solid;
+	border-left-style: none;
+	border-top-style: dashed;
+	border-color: #BDE9DB;
 	color: #70B7A0;
 	padding: 10px;
 }
