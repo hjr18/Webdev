@@ -4,7 +4,11 @@
 .div {
 	background-color: lightblue;
 }
-
+path.line
+{
+    fill: none;
+    stroke: red;
+}
 
 .Table-header {
     background-color: #ccc;

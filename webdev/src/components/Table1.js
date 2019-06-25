@@ -6,6 +6,8 @@ import axios from 'axios';
 import 'chart.js'
 import * as d3 from 'd3';
 
+import './Table.css';
+
 
 class Table1 extends Component {
 
@@ -54,6 +56,7 @@ class Table1 extends Component {
                if (data.success) {
                    console.log("data success=true");
                    this.setState({dataStore: data.result});
+                    this.draw();
                }
            });
    }
@@ -61,7 +64,6 @@ class Table1 extends Component {
 
     componentDidMount() {
            this.interval= setInterval(() =>  this.updateData(), 10000);
-        this.draw()
        }
 
     componentWillUnmount() {
@@ -77,10 +79,10 @@ class Table1 extends Component {
             g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         const x = d3.scaleLinear()
-            .rangeRound([0,width]);
+            .range([0,width]);
 
         const y = d3.scaleLinear()
-            .rangeRound([height, 0]);
+            .range([height, 0]);
         const make_x_grid_lines = () => {
             return d3.axisBottom(x)
                 .ticks(10)
@@ -95,27 +97,13 @@ class Table1 extends Component {
             .y(function(d) { return y(d.price); });
         x.domain(d3.extent(this.state.dataStore, function(d) {return d.time; }));
         y.domain(d3.extent(this.state.dataStore, function(d) { return d.price; }));
-// add the X gridlines
-        g.append("g")
-            .attr("class", `grid`)
-            .attr("transform", "translate(0," + height + ")")
-            .call(make_x_grid_lines()
-                .tickSize(-height)
-                .tickFormat(""))
-// add the Y gridlines
-        g.append("g")
-            .attr("class", `grid`)
-            .call(make_y_gridlines()
-                .tickSize(-width)
-                .tickFormat(""))
+
 //plot the x axis
         g.append("g")
-            .attr("class", `axis axis--x`)
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(x));
 //plot the y axis
         g.append("g")
-            .attr("class", 'axis axis--y')
             .call(d3.axisLeft(y))
             //plot the y axis legend
             .append("text")
@@ -133,13 +121,7 @@ class Table1 extends Component {
             .attr('y',-10)
             .attr('x',width-100)
             .text('Price');
-        g.append('g')
-            .append('rect')
-            .attr('y',-23)
-            .attr('x',width-55)
-            .attr('width',18)
-            .attr('height',18)
-            .attr('fill','steelblue');
+
         //plot the x axis legend
         svg.append("text")
             .attr("transform","translate(" + (width/2) + " ," + (height + margin.top + 40) + ")")
@@ -148,12 +130,13 @@ class Table1 extends Component {
 // Plot the Line
         g.append("path")
             .datum(this.state.dataStore)
-            .attr("class", `lineUsers`)
-            .attr("d", lineCount)
+            .attr("class", "line")
+            .attr("d", lineCount);
+
     }
 
 render() {
-    this.draw();
+    //this.draw();
     return (
 	<React.Fragment>
     <div>
@@ -193,13 +176,15 @@ render() {
                 </button>
 
             </div>
-      <div 
+
+      <div
         className="ag-theme-balham"
         style={{ 
         height: '500px',
         width: '1700px' }} 
       >
-          <svg width="960" height="500" style={{border:'solid 1px       #eee',borderBottom:'solid 1px #ccc'}} />
+          <svg width="960" height="500" style={{}} />
+
           <AgGridReact
               columnDefs={this.state.columnDefs}
               //rowData={this.state.rowData}>
