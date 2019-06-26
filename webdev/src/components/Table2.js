@@ -3,6 +3,7 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import axios from 'axios';
+import * as d3 from "d3";
 
 
 class Table2 extends Component {
@@ -57,20 +58,26 @@ class Table2 extends Component {
             });
     }
 
+    componentDidMount() {
+        this.interval= setInterval(() =>  this.updateData(), 5000);
+    }
+
+    componentWillUnmount() {
+        d3.selectAll("svg > *").remove();
+        clearInterval(this.interval);
+    }
 
 
     render() {
 
         return (
             <React.Fragment>
-                <div>
-                    Trade
-                </div>
+
                 <div
                     className="ag-theme-balham"
                     style={{
-                        height: '500px',
-                        width: '1700px' }}
+                        height: '350px',
+                        width: '410px' }}
                 >
                     <AgGridReact
                         columnDefs={this.state.columnDefs}

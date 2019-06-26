@@ -15,12 +15,8 @@ class Table1 extends Component {
     super(props);
       this.dataStore=[];
       this.state = {
-      columnDefs: [{
-          headerName: "Time", field: "time", sortable: true, filter: true, resizable: true
-      },{
-        headerName: "Running avg Price", field: "price", sortable: true, filter: true, resizable: true
-      }],
         dataStore:[],
+          symbol: 'AAPL'
     };
     this.updateData();
   };
@@ -51,29 +47,36 @@ class Table1 extends Component {
     }
 
    updateData() {
-       this.getData("select time,avgs price from trade where sym=`GOOG")
+       this.getData(`-35000#select time,avgs price from trade where sym=\`${this.state.symbol}`)
            .then(data => {
                if (data.success) {
                    console.log("data success=true");
                    this.setState({dataStore: data.result});
+                   d3.selectAll("svg > *").remove();
                     this.draw();
                }
            });
    }
 
+   changeSym = (sym) => {
+           console.log(sym);
+           this.setState({symbol: sym});
+       this.updateData();
+    };
 
     componentDidMount() {
-           this.interval= setInterval(() =>  this.updateData(), 10000);
+           this.interval= setInterval(() =>  this.updateData(), 1000);
        }
 
     componentWillUnmount() {
+        d3.selectAll("svg > *").remove();
         clearInterval(this.interval);
     }
 
 
     draw(){
         const svg = d3.select("svg"),
-            margin = {top: 50, right: 20, bottom: 50, left: 50},
+            margin = {top: 50, right: 20, bottom: 50, left: 80},
             width = 960 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom,
             g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -109,18 +112,12 @@ class Table1 extends Component {
             .append("text")
             .attr("fill", "#000")
             .attr("transform", "rotate(-90)")
-            .attr("y", -10)
+            .attr("y", -55)
             .attr("dy", "0.71em")
             .style("text-anchor", "end")
             .style('font-size','12')
             .text("Avg Price");
-// plot the line legend with color
-        g.append('g')
-            .attr('class', 'legend')
-            .append('text')
-            .attr('y',-10)
-            .attr('x',width-100)
-            .text('Price');
+
 
         //plot the x axis legend
         svg.append("text")
@@ -136,60 +133,48 @@ class Table1 extends Component {
     }
 
 render() {
-    //this.draw();
     return (
 	<React.Fragment>
     <div>
-        Quote
+        A time series graph showing the running average price for each sym for the day
     </div>
 
             <div>
-                <button className='nav-buttons'>
+                <button className='nav-buttons' onClick={() =>this.changeSym("AAPL")}>
                     AAPL
                 </button>
-                <button className='nav-buttons'>
+                <button className='nav-buttons' onClick={() =>this.changeSym('AIG')}>
                     AIG
                 </button>
-                <button className='nav-buttons'>
+                <button className='nav-buttons' onClick={() =>this.changeSym('AMD')}>
                     AMD
                 </button>
-                <button className='nav-buttons'>
+                <button className='nav-buttons' onClick={() =>this.changeSym('DELL')}>
                     DELL
                 </button>
-                <button className='nav-buttons'>
+                <button className='nav-buttons' onClick={() =>this.changeSym('DOW')}>
                     DOW
                 </button>
-                <button className='nav-buttons'>
+                <button className='nav-buttons' onClick={() =>this.changeSym('GOOG')}>
                     GOOG
                 </button>
-                <button className='nav-buttons'>
+                <button className='nav-buttons' onClick={() =>this.changeSym('HPQ')}>
                     HPQ
                 </button>
-                <button className='nav-buttons'>
+                <button className='nav-buttons' onClick={() =>this.changeSym('IBM')}>
                     IBM
                 </button>
-                <button className='nav-buttons'>
+                <button className='nav-buttons' onClick={() =>this.changeSym('INTC')}>
                     INTC
                 </button>
-                <button className='nav-buttons'>
+                <button className='nav-buttons' onClick={() =>this.changeSym('MSFT')}>
                     MSFT
                 </button>
 
             </div>
 
-      <div
-        className="ag-theme-balham"
-        style={{ 
-        height: '500px',
-        width: '1700px' }} 
-      >
-          <svg width="960" height="500" style={{}} />
-
-          <AgGridReact
-              columnDefs={this.state.columnDefs}
-              //rowData={this.state.rowData}>
-              rowData={this.state.dataStore}>
-          </AgGridReact>
+      <div className='graph-div'>
+          <svg width="960" height="500" />
       </div>
 
 	

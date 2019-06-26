@@ -62,13 +62,13 @@ class MostTradeSym extends Component {
         return (
             <React.Fragment>
                 <div>
-                    Trade
+                    Most Traded Sym
                 </div>
                 <div
                     className="ag-theme-balham"
                     style={{
-                        height: '500px',
-                        width: '1700px' }}
+                        height: '80px',
+                        width: '410px' }}
                 >
                     <AgGridReact
                         columnDefs={this.state.columnDefs}

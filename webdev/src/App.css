@@ -39,7 +39,7 @@
 	border-bottom-style: solid;
 	border-right-style: solid;
 	border-left-style: none;
-	border-top-style: dashed;
+	border-top-style: none;
 	border-color: #BDE9DB;
 	color: #70B7A0;
 	padding: 10px;
@@ -57,3 +57,7 @@
 	background-color: #BDE9DB;
 }
 
+.rowC {
+	display:flex;
+	flex-direction:row;
+}

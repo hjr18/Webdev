@@ -62,13 +62,13 @@ class HighDay extends Component {
         return (
             <React.Fragment>
                 <div>
-                    Trade
+                    High Day
                 </div>
                 <div
                     className="ag-theme-balham"
                     style={{
-                        height: '500px',
-                        width: '1700px' }}
+                        height: '80px',
+                        width: '410px' }}
                 >
                     <AgGridReact
                         columnDefs={this.state.columnDefs}

@@ -37,42 +37,38 @@ class App extends Component {
       <Tabs activeTab={{ id: "Table1" }} style={styles} >
 
 	  <Tabs.Tab id="Table1" title="Table1" className="nav-buttons">
-	  <Table1 />
+
+		  <Table1 />
+		  <div className='rowC'>
+		<Table2 />
+		<Table3 />
+	  </div>
 	  </Tabs.Tab>
-	  <Tabs.Tab id="Table2" title="Table2">
-	  <Table2 />
-	  </Tabs.Tab>
-      <Tabs.Tab id="Table3" title="Table3">
-		  <Table3 />
-      </Tabs.Tab>
+
       <Tabs.Tab id="LastPriceTab" title="LastPriceTab">
 		  <LastPriceTab />
       </Tabs.Tab>
       <Tabs.Tab id="VolumeBySymTab" title="VolumeBySymTab">
 		  <VolumeBySymTab />
-      </Tabs.Tab>
-		  <Tabs.Tab id="HighestTradedSym" title="HighestTradedSym">
 		  <HighestTradedSym />
-	  </Tabs.Tab>
+      </Tabs.Tab>
 
 		<Tabs.Tab id="SymVol" title="SymVol">
 			  <SymVol />
+			<div className='rowC'>
+				<MostTradeSym />
+				<LeastTradeSym />
+			</div>
 		  </Tabs.Tab>
-		  <Tabs.Tab id="MostTradeSym" title="MostTradeSym">
-			  <MostTradeSym />
-		  </Tabs.Tab>
-		  <Tabs.Tab id="LeastTradeSym" title="LeastTradeSym">
-		  <LeastTradeSym />
-	  </Tabs.Tab>
+
 		  <Tabs.Tab id="HDBCounts" title="HDBCounts">
 		  <HDBCounts />
+			  <div className='rowC'>
+				  <HighDay />
+				  <LowDay />
+			  </div>
 	  </Tabs.Tab>
-		  <Tabs.Tab id="HighDay" title="HighDay">
-			  <HighDay />
-		  </Tabs.Tab>
-		  <Tabs.Tab id="LowDay" title="LowDay">
-			  <LowDay />
-		  </Tabs.Tab>
+
 	  </Tabs>
 	</div>
 	  </React.Fragment>
