@@ -18,8 +18,9 @@ class VolumeBySymTab extends Component {
             }, {
                 headerName: "Size", field: "size", sortable: true, filter: true, resizable: true
             }],
-            dataStore:[]
-
+            dataStore:[],
+            max: 0,
+            min: 0,
         }
         this.updateData();
     };
@@ -41,6 +42,40 @@ class VolumeBySymTab extends Component {
             }
     };
 
+    /*ybuffer() {
+        var i = 0;
+        this.setState({max: this.state.dataStore[0]});
+        this.setState({min: this.state.dataStore[0]});
+        for (i; i < this.state.dataStore.length - 1; i++) {
+            console.log(this.state.max);
+            console.log(this.state.min);
+            console.log(this.i);
+            if (this.state.max < this.state.dataStore[i]){
+                this.setState({max: this.state.dataStore[i]});
+            }
+            if (this.state.min > this.state.dataStore[i]){
+                this.setState({min: this.state.dataStore[i]});
+            }
+        }
+    };*/
+
+    ybuffer() {
+        var i = 1;
+        this.setState({max: this.state.dataStore[0].size});
+        this.setState({min: this.state.dataStore[0].size});
+        for (i; i < this.state.dataStore.length ; i++) {
+            console.log(this.state.max);
+            console.log(this.state.min);
+            console.log(this.i);
+            if (this.state.max < this.state.dataStore[i].size){
+                this.setState({max: this.state.dataStore[i].size});
+            }
+            if (this.state.min > this.state.dataStore[i].size){
+                this.setState({min: this.state.dataStore[i].size});
+            }
+        }
+    };
+
     getData(query) {
         this.options['data'] = { 'query': query, 'response': 'true', 'type': 'sync'};
         return axios(this.options)
@@ -52,7 +87,12 @@ class VolumeBySymTab extends Component {
             .then(data => {
                 if (data.success) {
                     console.log("data success=true");
+
                     this.setState({dataStore: data.result});
+                    this.ybuffer();
+                    //console.log(this.state.max);
+                    //console.log(this.state.min);
+                    console.log(this.state.dataStore.length);
                     d3.selectAll("svg > *").remove();
                     this.draw();
 
@@ -68,6 +108,8 @@ class VolumeBySymTab extends Component {
         d3.selectAll("svg > *").remove();
         clearInterval(this.interval);
     }
+
+
 
     draw(){
         const svg = d3.select("svg"),
@@ -92,7 +134,7 @@ class VolumeBySymTab extends Component {
         //y.domain(d3.extent(this.state.dataStore, function(d) { return d.size; }));
         const yScale = d3.scaleLinear()
             .range([height, 0])
-            .domain([3000000, 3500000]);
+            .domain([0.95*this.state.min, 1.05*this.state.max]);
 //plot the x axis
 
 //plot the y axis
@@ -102,7 +144,7 @@ class VolumeBySymTab extends Component {
             .append("text")
             .attr("fill", "#000")
             .attr("transform", "rotate(-90)")
-            .attr("y", -55)
+            .attr("y", -70)
             .attr("dy", "0.71em")
             .style("text-anchor", "end")
             .style("text-anchor", "end")
