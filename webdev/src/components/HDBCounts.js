@@ -74,10 +74,71 @@ class HDBCounts extends Component {
                 if (data.success) {
                     console.log("data success=true");
                     this.setState({dataStore: data.result});
+                    this.draw();
                 }
             });
     }
 
+    draw(){
+        const svg = d3.select("svg"),
+            margin = {top: 50, right: 20, bottom: 50, left: 80},
+            width = 960 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom,
+            g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+
+
+
+
+        const xScale = d3.scaleBand()
+            .range([0, width])
+            .domain(this.state.dataStore.map((s) => s.date))
+            .padding(0.3)
+
+        g.append('g')
+            .attr('transform', `translate(0, ${height})`)
+            .call(d3.axisBottom(xScale));
+        //y.domain(d3.extent(this.state.dataStore, function(d) { return d.size; }));
+        const yScale = d3.scaleLinear()
+            .range([height, 0])
+            .domain([0, 200000]);
+//plot the x axis
+
+//plot the y axis
+        g.append("g")
+            .call(d3.axisLeft(yScale))
+            //plot the y axis legend
+            .append("text")
+            .attr("fill", "#000")
+            .attr("transform", "rotate(-90)")
+            .attr("y", -55)
+            .attr("dy", "0.71em")
+            .style("text-anchor", "end")
+            .style("text-anchor", "end")
+            .style('font-size','12')
+            .text("Size");
+
+        g.append('g')
+            .call(d3.axisLeft(yScale));
+
+        //g the x axis legend
+        g.append("text")
+            .attr("transform","translate(" + (width/2) + " ," + (height + margin.top + 40) + ")")
+            .style("text-anchor", "middle")
+            .text("Sym");
+
+
+        g.selectAll()
+            .data(this.state.dataStore)
+            .enter()
+            .append('rect')
+            .attr('x', (d) => xScale(d.date))
+            .attr('y', (d) => yScale(d.colCount))
+            .attr('height', (d) => height - yScale(d.colCount))
+            .attr('width', xScale.bandwidth());
+
+    }
 
     render() {
 
@@ -119,6 +180,10 @@ class HDBCounts extends Component {
                 </div>
                 <div>
                    {this.state.symbol}
+                </div>
+                <div className='graph-div'>
+                    <svg width="960" height="500" />
+
                 </div>
                 <div
                     className="ag-theme-balham"
