@@ -12,10 +12,7 @@ class HDBCounts extends Component {
     constructor(props) {
         super(props);
         this.dataStore=[];
-        this.state = {
-            dataStore:[],
-            symbol: 'AAPL'
-        };
+
         this.state = {
             columnDefs: [{
                 headerName: "Date", field: "date", sortable: true, filter: true, resizable: true
@@ -23,7 +20,9 @@ class HDBCounts extends Component {
                 headerName: "Number of trades", field: "colCount", sortable: true, filter: true, resizable: true
             }],
 
-            dataStore:[]
+            dataStore:[],
+            symbol: ''
+
 
         }
         this.updateData();
@@ -31,22 +30,21 @@ class HDBCounts extends Component {
 
     changeSym = (sym) => {
         console.log(sym);
-        this.setState({symbol: sym});
-        this.updateData();
+        this.setState({symbol: sym},()=>this.updateData());
     };
 
     componentDidMount() {
-        this.interval= setInterval(() =>  this.updateData(), 1000);
+
     }
 
     componentWillUnmount() {
         d3.selectAll("svg > *").remove();
-        clearInterval(this.interval);
+
     }
 
 
     options = {
-        url: 'https://192.168.1.57:8140/executeQuery',
+        url: 'https://192.168.1.156:8140/executeQuery',
         auth: {
             username: 'user',
             password: 'pass',
@@ -69,15 +67,34 @@ class HDBCounts extends Component {
     }
 
     updateData() {
-        this.getData(`select colCount:count i by date from trade where ((date >.z.d-8)&(1<date mod 7)),sym=\`${this.state.symbol}`)
+        this.getData(`select colCount:count i by date from trade where ((date >.z.d-8)&(1<date mod 7))`+this.state.symbol)
             .then(data => {
                 if (data.success) {
                     console.log("data success=true");
                     this.setState({dataStore: data.result});
+                    this.ybuffer();
+                    d3.selectAll("svg > *").remove();
                     this.draw();
                 }
             });
     }
+
+    ybuffer() {
+        var i = 1;
+        this.setState({max: this.state.dataStore[0].colCount});
+        this.setState({min: this.state.dataStore[0].colCount});
+        for (i; i < this.state.dataStore.length ; i++) {
+            console.log(this.state.max);
+            console.log(this.state.min);
+            console.log(this.i);
+            if (this.state.max < this.state.dataStore[i].colCount){
+                this.setState({max: this.state.dataStore[i].colCount});
+            }
+            if (this.state.min > this.state.dataStore[i].colCount){
+                this.setState({min: this.state.dataStore[i].colCount});
+            }
+        }
+    };
 
     draw(){
         const svg = d3.select("svg"),
@@ -102,7 +119,7 @@ class HDBCounts extends Component {
         //y.domain(d3.extent(this.state.dataStore, function(d) { return d.size; }));
         const yScale = d3.scaleLinear()
             .range([height, 0])
-            .domain([0, 200000]);
+            .domain([0.95*this.state.min, 1.05*this.state.max]);
 //plot the x axis
 
 //plot the y axis
@@ -146,41 +163,42 @@ class HDBCounts extends Component {
             <React.Fragment>
 
                 <div>
-                    <button className='nav-buttons' onClick={() =>this.changeSym("AAPL")}>
+                    <button className='nav-buttons' onClick={() =>this.changeSym("")}>
+                        ALL
+                    </button>
+                    <button className='nav-buttons' onClick={() =>this.changeSym(",sym=`AAPL")}>
                         AAPL
                     </button>
-                    <button className='nav-buttons' onClick={() =>this.changeSym('AIG')}>
+                    <button className='nav-buttons' onClick={() =>this.changeSym(',sym=`AIG')}>
                         AIG
                     </button>
-                    <button className='nav-buttons' onClick={() =>this.changeSym('AMD')}>
+                    <button className='nav-buttons' onClick={() =>this.changeSym(',sym=`AMD')}>
                         AMD
                     </button>
-                    <button className='nav-buttons' onClick={() =>this.changeSym('DELL')}>
+                    <button className='nav-buttons' onClick={() =>this.changeSym(',sym=`DELL')}>
                         DELL
                     </button>
-                    <button className='nav-buttons' onClick={() =>this.changeSym('DOW')}>
+                    <button className='nav-buttons' onClick={() =>this.changeSym(',sym=`DOW')}>
                         DOW
                     </button>
-                    <button className='nav-buttons' onClick={() =>this.changeSym('GOOG')}>
+                    <button className='nav-buttons' onClick={() =>this.changeSym(',sym=`GOOG')}>
                         GOOG
                     </button>
-                    <button className='nav-buttons' onClick={() =>this.changeSym('HPQ')}>
+                    <button className='nav-buttons' onClick={() =>this.changeSym(',sym=`HPQ')}>
                         HPQ
                     </button>
-                    <button className='nav-buttons' onClick={() =>this.changeSym('IBM')}>
+                    <button className='nav-buttons' onClick={() =>this.changeSym(',sym=`IBM')}>
                         IBM
                     </button>
-                    <button className='nav-buttons' onClick={() =>this.changeSym('INTC')}>
+                    <button className='nav-buttons' onClick={() =>this.changeSym(',sym=`INTC')}>
                         INTC
                     </button>
-                    <button className='nav-buttons' onClick={() =>this.changeSym('MSFT')}>
+                    <button className='nav-buttons' onClick={() =>this.changeSym(',sym=`MSFT')}>
                         MSFT
                     </button>
 
                 </div>
-                <div>
-                   {this.state.symbol}
-                </div>
+                <div className="rowC">
                 <div className='graph-div'>
                     <svg width="960" height="500" />
 
@@ -188,14 +206,15 @@ class HDBCounts extends Component {
                 <div
                     className="ag-theme-balham"
                     style={{
-                        height: '500px',
-                        width: '1700px' }}
+                        height: '200px',
+                        width: '500px' }}
                 >
                     <AgGridReact
                         columnDefs={this.state.columnDefs}
                         //rowData={this.state.rowData}>
                         rowData={this.state.dataStore}>
                     </AgGridReact>
+                </div>
                 </div>
 
             </React.Fragment>
