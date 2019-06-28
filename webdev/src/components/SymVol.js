@@ -14,8 +14,6 @@ class SymVol extends Component {
             columnDefs: [{
                 headerName: "Date", field: "date", sortable: true, filter: true, resizable: true
             }, {
-                 headerName: "Minute", field: "minute.i", sortable: true, filter: true, resizable: true
-            }, {
                  headerName: "Y", field: "y", sortable: true, filter: true, resizable: true
             }],
             dataStore:[],
@@ -25,10 +23,8 @@ class SymVol extends Component {
         this.updateData();
     };
 
-    formatMinute = d3.timeFormat("%I:%M");
-
     options = {
-        url: 'https://192.168.1.57:8140/executeQuery',
+        url: 'https://192.168.1.156:8140/executeQuery',
         auth: {
             username: 'user',
             password: 'pass',
@@ -51,7 +47,7 @@ class SymVol extends Component {
     }
 
     updateData() {
-        this.getData(`select y:sdev price by date,15 xbar time.minute from trade where date${this.state.range},sym=\`${this.state.symbol}`)
+        this.getData(`select y:sdev price by date+15 xbar time.minute from trade where date${this.state.range},sym=\`${this.state.symbol}`)
             .then(data => {
                 if (data.success) {
                     console.log("data success=true");
@@ -75,14 +71,6 @@ class SymVol extends Component {
         //this.updateData();
     };
 
-
-
-
-
-
-
-
-
     draw(){
         const svg = d3.select("svg"),
             margin = {top: 50, right: 20, bottom: 50, left: 80},
@@ -105,9 +93,9 @@ class SymVol extends Component {
                 .ticks(10)
         }
         const lineCount = d3.line()
-            .x(function(d) { return x(d.minute.i); })
+            .x(function(d) { return x(d.date); })
             .y(function(d) { return y(d.y); });
-        x.domain(d3.extent(this.state.dataStore, function(d) {return d.minute.i; }));
+        x.domain(d3.extent(this.state.dataStore, function(d) {return d.date; }));
         y.domain(d3.extent(this.state.dataStore, function(d) { return d.y; }));
 
 //plot the x axis
@@ -141,16 +129,6 @@ class SymVol extends Component {
             .attr("d", lineCount);
 
     }
-
-
-
-
-
-
-
-
-
-
 
     render() {
 
