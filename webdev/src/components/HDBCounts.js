@@ -31,6 +31,8 @@ class HDBCounts extends Component {
     changeSym = (sym) => {
         console.log(sym);
         this.setState({symbol: sym},()=>this.updateData());
+        this.setState({symbol: sym},()=>this.handleSymChange());
+
     };
 
     componentDidMount() {
@@ -44,7 +46,7 @@ class HDBCounts extends Component {
 
 
     options = {
-        url: 'https://192.168.1.156:8140/executeQuery',
+        url: 'https://192.168.1.57:8140/executeQuery',
         auth: {
             username: 'user',
             password: 'pass',
@@ -155,6 +157,11 @@ class HDBCounts extends Component {
             .attr('height', (d) => height - yScale(d.colCount))
             .attr('width', xScale.bandwidth());
 
+    }
+
+    handleSymChange = () => {
+        var sym = this.state.symbol;
+        this.props.onHDBCounts(sym);
     }
 
     render() {

@@ -26,6 +26,21 @@ const styles = {
 }
 	
 class App extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			symbol: ''
+		}
+	};
+
+	handleSymbol = (symSend) => {
+		this.setState({symbol: symSend});
+	}
+
+	getSymFromParent=()=>{
+		return this.state.symbol;
+
+}
 	render() {
     return (
 	<React.Fragment>
@@ -62,10 +77,10 @@ class App extends Component {
 		  </Tabs.Tab>
 
 		  <Tabs.Tab id="HDBCounts" title="HDBCounts">
-		  <HDBCounts />
+		  <HDBCounts onHDBCounts={this.handleSymbol} />
 			  <div className='rowC'>
-				  <HighDay />
-				  <LowDay />
+				  <HighDay symFromParent={this.state.symbol}/>
+				  <LowDay symFromParent={this.state.symbol}/>
 			  </div>
 	  </Tabs.Tab>
 
