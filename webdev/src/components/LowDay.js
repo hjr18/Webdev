@@ -13,9 +13,9 @@ class LowDay extends Component {
         this.dataStore=[];
         this.state = {
             columnDefs: [{
-                headerName: "X", field: "x", sortable: true, filter: true, resizable: true
+                headerName: "Date", field: "x", sortable: true, filter: true, resizable: true
             }, {
-                headerName: "Cnt", field: "cnt", sortable: true, filter: true, resizable: true
+                headerName: "Count", field: "cnt", sortable: true, filter: true, resizable: true
             }],
             dataStore:[]
 
@@ -47,7 +47,7 @@ class LowDay extends Component {
     }
 
     updateData() {
-        this.getData("select from (select cnt:count i by x:date from trade where date >.z.d-7) where cnt=min cnt")
+        this.getData(`select from (select cnt:count i by x:date from trade where ((date >.z.d-8)&(1<date mod 7))`+this.props.symFromParent+`) where cnt=min cnt`)
             .then(data => {
                 if (data.success) {
                     console.log("data success=true");
@@ -56,13 +56,17 @@ class LowDay extends Component {
             });
     }
 
+    componentWillReceiveProps= ()=>  {
+        this.updateData()
+    }
+
 
     render() {
 
         return (
             <React.Fragment>
                 <div>
-                    Low Day
+                    Lowest Day
                 </div>
                 <div
                     className="ag-theme-balham"

@@ -31,6 +31,8 @@ class HDBCounts extends Component {
     changeSym = (sym) => {
         console.log(sym);
         this.setState({symbol: sym},()=>this.updateData());
+        this.setState({symbol: sym},()=>this.handleSymChange());
+
     };
 
     componentDidMount() {
@@ -155,6 +157,11 @@ class HDBCounts extends Component {
             .attr('height', (d) => height - yScale(d.colCount))
             .attr('width', xScale.bandwidth());
 
+    }
+
+    handleSymChange = () => {
+        var sym = this.state.symbol;
+        this.props.onHDBCounts(sym);
     }
 
     render() {
