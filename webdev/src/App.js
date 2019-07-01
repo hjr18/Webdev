@@ -51,7 +51,7 @@ class App extends Component {
 	<div className="nav-button-holder" >
       <Tabs activeTab={{ id: "Table1" }} style={styles} >
 
-	  <Tabs.Tab id="Table1" title="Table1" className="nav-buttons">
+	  <Tabs.Tab id="Table1" title="RDB Price Data" className="nav-buttons">
 
 		  <Table1 />
 		  <div className='rowC'>
@@ -63,12 +63,12 @@ class App extends Component {
       <Tabs.Tab id="LastPriceTab" title="LastPriceTab">
 		  <LastPriceTab />
       </Tabs.Tab>
-      <Tabs.Tab id="VolumeBySymTab" title="VolumeBySymTab">
+      <Tabs.Tab id="VolumeBySymTab" title="RDB Volume Data">
 		  <VolumeBySymTab />
 		  <HighestTradedSym />
       </Tabs.Tab>
 
-		<Tabs.Tab id="SymVol" title="SymVol">
+		<Tabs.Tab id="SymVol" title="HDB Volatility">
 			  <SymVol />
 			<div className='rowC'>
 				<MostTradeSym />
@@ -76,7 +76,7 @@ class App extends Component {
 			</div>
 		  </Tabs.Tab>
 
-		  <Tabs.Tab id="HDBCounts" title="HDBCounts">
+		  <Tabs.Tab id="HDBCounts" title="HDB Volume Data">
 		  <HDBCounts onHDBCounts={this.handleSymbol} />
 			  <div className='rowC'>
 				  <HighDay symFromParent={this.state.symbol}/>
