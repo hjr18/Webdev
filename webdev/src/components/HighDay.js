@@ -24,7 +24,7 @@ class HighDay extends Component {
     };
 
     options = {
-        url: 'https://192.168.1.57:8140/executeQuery',
+        url: 'https://localhost:8140/executeQuery',
         auth: {
             username: 'user',
             password: 'pass',
@@ -46,8 +46,7 @@ class HighDay extends Component {
             .then(response => response.data);
     }
 
-    updateData() {
-        let symbol=this.props.symFromParent;
+    updateData(symbol) {
         this.getData(`select from (select cnt:count i by x:date from trade where ((date >.z.d-8)&(1<date mod 7))`+symbol+`)where cnt=max cnt`)
             .then(data => {
                 if (data.success) {
@@ -56,7 +55,9 @@ class HighDay extends Component {
                 }
             });
     }
-
+    componentWillReceiveProps= (newProps)=>  {
+        this.updateData(newProps.symFromParent);
+    }
 
 
     render() {
