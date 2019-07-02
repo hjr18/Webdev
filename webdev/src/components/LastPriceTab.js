@@ -4,7 +4,7 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import axios from 'axios';
 import * as d3 from "d3";
-
+import './Table.css';
 
 class LastPriceTab extends Component {
 
@@ -13,19 +13,39 @@ class LastPriceTab extends Component {
         super(props);
         this.dataStore=[];
         this.state = {
+            dataStore:[],
             columnDefs: [{
                 headerName: "Sym", field: "sym", sortable: true, filter: true, resizable: true
             }, {
-                headerName: "Last Price", field: "price", sortable: true, filter: true, resizable: true
+                headerName: "Last Price", field: "price", sortable: true, filter: true, resizable: true, cellStyle:(params)=> {
+                    var colour = params.node.data.colour[0];
+                        if (colour === 1) {
+                            console.log("Red");
+                            return {
+
+                                    background: 'rgba(255,0,0,0.75)'
+
+                            };
+                        } else if (colour === 2) {
+                            console.log("Green");
+                            return {
+
+                                background: 'rgba(0,255,0,0.75)'
+
+
+                            };
+                        }
+                    }
+
             }],
-            dataStore:[]
+
 
         }
         this.updateData();
     };
 
     options = {
-        url: 'https://192.168.1.57:8139/executeQuery',
+        url: 'https://localhost:8139/executeQuery',
         auth: {
             username: 'user',
             password: 'pass',
@@ -41,6 +61,8 @@ class LastPriceTab extends Component {
             }
     };
 
+
+
     getData(query) {
         this.options['data'] = { 'query': query, 'response': 'true', 'type': 'sync'};
         return axios(this.options)
@@ -48,23 +70,27 @@ class LastPriceTab extends Component {
     }
 
     updateData() {
-        this.getData("select last price by sym from trade")
+        this.getData("select last price,colour:?[(last price)>-1_-2#price;1;?[(last price)<-1_-2#price;2;0]] by sym from trade")
             .then(data => {
                 if (data.success) {
                     console.log("data success=true");
                     this.setState({dataStore: data.result});
+                    //console.log(this.state.dataStore);
+
+
                 }
             });
     }
 
     componentDidMount() {
-        this.interval= setInterval(() =>  this.updateData(), 5000);
+        this.interval= setInterval(() =>  this.updateData(), 3000);
     }
 
     componentWillUnmount() {
         d3.selectAll("svg > *").remove();
         clearInterval(this.interval);
     }
+
 
     render() {
 
