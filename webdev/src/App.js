@@ -4,8 +4,7 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import { Tabs } from '@yazanaabed/react-tabs';
 import Table1 from './components/Table1';
-import Table2 from './components/Table2';
-import Table3 from './components/Table3';
+import MinMaxPrice from './components/MinMaxPrice';
 import LastPriceTab from './components/LastPriceTab';
 import HDBCounts from './components/HDBCounts';
 import VolumeBySymTab from './components/VolumeBySymTab';
@@ -44,9 +43,10 @@ class App extends Component {
 	render() {
     return (
 	<React.Fragment>
-	<div className="page-header">
-	<img className="aquaq-logo" src={require("./images/aquaq-logo.png")} />
-	</div>
+		{/*<div className="page-header">
+			<img className="aquaq-logo" src={require("./images/aquaq-logo.png")} />
+		</div>*/}
+
 	
 	<div className="nav-button-holder" >
       <Tabs activeTab={{ id: "Table1" }} style={styles} >
@@ -54,9 +54,8 @@ class App extends Component {
 	  <Tabs.Tab id="Table1" title="RDB Price Data" className="nav-buttons">
 
 		  <Table1 />
-		  <div className='rowC'>
-		<Table2 />
-		<Table3 />
+		  <div>
+		<MinMaxPrice />
 	  </div>
 	  </Tabs.Tab>
 
@@ -79,8 +78,8 @@ class App extends Component {
 		  <Tabs.Tab id="HDBCounts" title="HDB Volume Data">
 		  <HDBCounts onHDBCounts={this.handleSymbol} />
 			  <div className='rowC'>
-				  <HighDay symFromParent={this.state.symbol}/>
 				  <LowDay symFromParent={this.state.symbol}/>
+				  <HighDay symFromParent={this.state.symbol}/>
 			  </div>
 	  </Tabs.Tab>
 

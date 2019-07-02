@@ -6,7 +6,7 @@ import axios from 'axios';
 import * as d3 from "d3";
 
 
-class Table2 extends Component {
+class MinMaxPrice extends Component {
 
 
     constructor(props) {
@@ -16,16 +16,18 @@ class Table2 extends Component {
             columnDefs: [{
                 headerName: "Sym", field: "sym", sortable: true, filter: true, resizable: true
             }, {
-                headerName: "Max Price", field: "price", sortable: true, filter: true, resizable: true
+                headerName: "Minimum Price", field: "minimum", sortable: true, filter: true, resizable: true
+            }, {
+                headerName: "Maximum Price", field: "maximum", sortable: true, filter: true, resizable: true
             }],
             dataStore:[]
 
-        }
+        };
         this.updateData();
     };
 
     options = {
-        url: 'https://192.168.1.57:8139/executeQuery',
+        url: 'https://192.168.1.140:8139/executeQuery',
         auth: {
             username: 'user',
             password: 'pass',
@@ -49,7 +51,7 @@ class Table2 extends Component {
 
 
     updateData() {
-        this.getData("select max avgs price by sym from trade")
+        this.getData("select minimum:.Q.f[2;min avgs price],maximum:.Q.f[2;max avgs price] by sym from trade")
             .then(data => {
                 if (data.success) {
                     console.log("data success=true");
@@ -76,8 +78,8 @@ class Table2 extends Component {
                 <div
                     className="ag-theme-balham"
                     style={{
-                        height: '350px',
-                        width: '410px' }}
+                        height: '330px',
+                        width: '615px' }}
                 >
                     <AgGridReact
                         columnDefs={this.state.columnDefs}
@@ -92,4 +94,4 @@ class Table2 extends Component {
 }
 
 
-export default Table2;
+export default MinMaxPrice;
