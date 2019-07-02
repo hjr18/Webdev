@@ -52,16 +52,19 @@ class App extends Component {
       <Tabs activeTab={{ id: "Table1" }} style={styles} >
 
 	  <Tabs.Tab id="Table1" title="RDB Price Data" className="nav-buttons">
-
-		  <Table1 />
-		  <div>
-		<MinMaxPrice />
-	  </div>
+		  	<Table1 />
+		<div>
+			<div className='rowC'>
+				<MinMaxPrice />
+			<div style={{
+				paddingLeft:50}
+			}>
+				<LastPriceTab />
+			</div>
+			</div>
+		</div>
 	  </Tabs.Tab>
 
-      <Tabs.Tab id="LastPriceTab" title="LastPriceTab">
-		  <LastPriceTab />
-      </Tabs.Tab>
       <Tabs.Tab id="VolumeBySymTab" title="RDB Volume Data">
 		  <VolumeBySymTab />
 		  <HighestTradedSym />

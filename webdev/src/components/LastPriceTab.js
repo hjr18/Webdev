@@ -45,7 +45,7 @@ class LastPriceTab extends Component {
     };
 
     options = {
-        url: 'https://localhost:8139/executeQuery',
+        url: 'https://192.168.1.57:8139/executeQuery',
         auth: {
             username: 'user',
             password: 'pass',
@@ -96,14 +96,11 @@ class LastPriceTab extends Component {
 
         return (
             <React.Fragment>
-                <div>
-                    Last Price
-                </div>
                 <div
                     className="ag-theme-balham"
                     style={{
-                        height: '500px',
-                        width: '1700px' }}
+                        height: '330px',
+                        width: '406px' }}
                 >
                     <AgGridReact
                         columnDefs={this.state.columnDefs}
