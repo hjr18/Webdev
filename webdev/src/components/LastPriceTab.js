@@ -6,6 +6,8 @@ import axios from 'axios';
 import * as d3 from "d3";
 import './Table.css';
 
+
+
 class LastPriceTab extends Component {
 
 
@@ -17,25 +19,30 @@ class LastPriceTab extends Component {
             columnDefs: [{
                 headerName: "Sym", field: "sym", sortable: true, filter: true, resizable: true
             }, {
-                headerName: "Last Price", field: "price", sortable: true, filter: true, resizable: true, cellStyle:(params)=> {
+                headerName: "Last Price",
+                field: "price",
+                sortable: true,
+                filter: true,
+                resizable: true,
+                cellStyle: (params) => {
                     var colour = params.node.data.colour[0];
-                        if (colour === 1) {
-                            //console.log("Red");
-                            return {
+                    if (colour === 1) {
+                        //console.log("Red");
+                        return {
 
-                                    background: 'rgba(255,0,0,0.75)'
+                            background: 'rgba(255,0,0,0.75)'
 
-                            };
-                        } else if (colour === 2) {
-                            //console.log("Green");
-                            return {
+                        };
+                    } else if (colour === 2) {
+                        //console.log("Green");
+                        return {
 
-                                background: 'rgba(0,255,0,0.75)'
+                            background: 'rgba(0,255,0,0.75)'
 
 
-                            };
-                        }
+                        };
                     }
+                }
 
             }],
 
@@ -62,7 +69,24 @@ class LastPriceTab extends Component {
     };
 
 
+      arrowCreate(data) {
+        var i = 0;
+        for (i;i<data.length;i++){
+            if (data[i].colour[0] === 2){
+                data[i].price = (data[i].price + "     \u2b9d");
+            }else if (data[i].colour[0] === 1) {
+                data[i].price = (data[i].price + "     \u2b9f");
 
+            }
+            else if (data[i].colour[0] === 0) {
+                data[i].price = (data[i].price + "     =");
+
+            }
+        }
+
+
+        return data
+    };
     getData(query) {
         this.options['data'] = { 'query': query, 'response': 'true', 'type': 'sync'};
         return axios(this.options)
@@ -74,7 +98,8 @@ class LastPriceTab extends Component {
             .then(data => {
                 if (data.success) {
                     console.log("data success=true");
-                    this.setState({dataStore: data.result});
+                    this.setState({dataStore: this.arrowCreate(data.result)});
+                    console.log(this.state.dataStore);
                     //console.log(this.state.dataStore);
 
 
