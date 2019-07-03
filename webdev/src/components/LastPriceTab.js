@@ -70,7 +70,7 @@ class LastPriceTab extends Component {
     }
 
     updateData() {
-        this.getData("select last price,colour:?[(last price)>-1_-2#price;1;?[(last price)<-1_-2#price;2;0]] by sym from trade")
+        this.getData("select .Q.f[2;last price],colour:?[(last price)>-1_-2#price;1;?[(last price)<-1_-2#price;2;0]] by sym from trade")
             .then(data => {
                 if (data.success) {
                     console.log("data success=true");

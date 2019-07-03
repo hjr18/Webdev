@@ -64,6 +64,7 @@ class HighDay extends Component {
 
         return (
             <React.Fragment>
+                <div className='rowD'>
                 <div>
                     Highest Day
                 </div>
@@ -78,6 +79,7 @@ class HighDay extends Component {
                         //rowData={this.state.rowData}>
                         rowData={this.state.dataStore}>
                     </AgGridReact>
+                </div>
                 </div>
 
             </React.Fragment>

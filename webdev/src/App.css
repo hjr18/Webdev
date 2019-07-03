@@ -59,6 +59,10 @@
 }
 
 .rowC {
+	 display:flex;
+	 flex-direction:row;
+ }
+.rowD {
 	display:flex;
-	flex-direction:row;
+	flex-direction:column;
 }

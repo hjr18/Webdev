@@ -61,6 +61,7 @@ class MostTradeSym extends Component {
 
         return (
             <React.Fragment>
+            <div className='rowD'>
                 <div>
                     Most Traded Sym
                 </div>
@@ -75,6 +76,7 @@ class MostTradeSym extends Component {
                         //rowData={this.state.rowData}>
                         rowData={this.state.dataStore}>
                     </AgGridReact>
+                </div>
                 </div>
 
             </React.Fragment>

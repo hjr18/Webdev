@@ -114,7 +114,7 @@ class VolumeBySymTab extends Component {
     draw(){
         const svg = d3.select("svg"),
             margin = {top: 50, right: 20, bottom: 50, left: 80},
-            width = 960 - margin.left - margin.right,
+            width = 1600 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom,
             g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -181,7 +181,7 @@ class VolumeBySymTab extends Component {
                     Volume by Sym
                 </div>
                 <div className='graph-div'>
-                    <svg width="960" height="500" />
+                    <svg width="1600" height="500" />
 
                 </div>
                <div>  <AgGridReact

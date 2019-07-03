@@ -61,6 +61,7 @@ class LeastTradeSym extends Component {
         console.log(this.dataStore);
         return (
             <React.Fragment>
+                <div className='rowD'>
                 <div>
                     Least Traded Sym
                 </div>
@@ -75,6 +76,7 @@ class LeastTradeSym extends Component {
                         //rowData={this.state.rowData}>
                         rowData={this.state.dataStore}>
                     </AgGridReact>
+                </div>
                 </div>
 
             </React.Fragment>
