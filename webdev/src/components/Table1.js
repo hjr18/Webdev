@@ -5,9 +5,20 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import axios from 'axios';
 import 'chart.js'
 import * as d3 from 'd3';
+import moment from 'moment-timezone'
 
 import './Table.css';
 
+export function timestampPls(data) {
+    var recivedTime = moment(new Date(data.time));
+    var i = 0;
+    for (i; i<data.length; i++){
+        data[i].time = new Date(data[i].time);
+        //data[i].time = recivedTime.format('HH:mm:ss');
+        //console.log(data[i].time);
+    }
+    return data
+};
 
 class Table1 extends Component {
 
@@ -22,7 +33,7 @@ class Table1 extends Component {
   };
 
      options = {
-        url: 'https://192.168.1.57:8139/executeQuery',
+        url: 'https://localhost:8139/executeQuery',
         auth: {
             username: 'user',
             password: 'pass',
@@ -52,6 +63,7 @@ class Table1 extends Component {
                if (data.success) {
                    console.log("data success=true");
                    this.setState({dataStore: data.result});
+                   this.setState({dataStore:timestampPls(this.state.dataStore)});
                    d3.selectAll("svg > *").remove();
                     this.draw();
                }
@@ -81,7 +93,7 @@ class Table1 extends Component {
             height = 500 - margin.top - margin.bottom,
             g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        const x = d3.scaleLinear()
+        const x = d3.scaleTime()
             .range([0,width]);
 
         const y = d3.scaleLinear()
@@ -105,6 +117,7 @@ class Table1 extends Component {
         g.append("g")
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(x));
+
 //plot the y axis
         g.append("g")
             .call(d3.axisLeft(y))
@@ -113,9 +126,10 @@ class Table1 extends Component {
             .attr("fill", "#000")
             .attr("transform", "rotate(-90)")
             .attr("y", -55)
+            .attr("x", -155)
             .attr("dy", "0.71em")
             .style("text-anchor", "end")
-            .style('font-size','12')
+            .style('font-size','14')
             .text("Avg Price");
 
 
@@ -124,6 +138,7 @@ class Table1 extends Component {
             .attr("transform","translate(" + (width/2) + " ," + (height + margin.top + 40) + ")")
             .style("text-anchor", "middle")
             .text("Time");
+
 // Plot the Line
         g.append("path")
             .datum(this.state.dataStore)
@@ -139,7 +154,7 @@ render() {
         A time series graph showing the running average price for each sym for the day
     </div>*/}
 
-            <div>
+            <div className="nav-button-holder">
                 <button className='nav-buttons' onClick={() =>this.changeSym("AAPL")}>
                     AAPL
                 </button>

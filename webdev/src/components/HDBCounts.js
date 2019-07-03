@@ -5,6 +5,8 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import axios from 'axios';
 import * as d3 from "d3";
 
+import './Table.css';
+
 
 class HDBCounts extends Component {
 
@@ -131,7 +133,7 @@ class HDBCounts extends Component {
             .append("text")
             .attr("fill", "#000")
             .attr("transform", "rotate(-90)")
-            .attr("y", -55)
+            .attr("y", -68)
             .attr("dy", "0.71em")
             .style("text-anchor", "end")
             .style("text-anchor", "end")
@@ -169,7 +171,7 @@ class HDBCounts extends Component {
         return (
             <React.Fragment>
 
-                <div>
+                <div className="nav-button-holder">
                     <button className='nav-buttons' onClick={() =>this.changeSym("")}>
                         ALL
                     </button>

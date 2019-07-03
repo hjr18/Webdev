@@ -26,7 +26,7 @@ class VolumeBySymTab extends Component {
     };
 
     options = {
-        url: 'https://192.168.1.57:8139/executeQuery',
+        url: 'https://localhost:8139/executeQuery',
         auth: {
             username: 'user',
             password: 'pass',
@@ -177,7 +177,7 @@ class VolumeBySymTab extends Component {
 
         return (
             <React.Fragment>
-                <div>
+                <div className="nav-button-holder">
                     Volume by Sym
                 </div>
                 <div className='graph-div'>

@@ -7,7 +7,7 @@
 path.line
 {
     fill: none;
-    stroke: #70B7A0;
+    stroke: #8c98f5;
 }
 
 .Table-header {
@@ -32,7 +32,9 @@ path.line
 
 .graph-div{
     background-color: #FFFFFF;
+    fill: #8c98f5;
 }
+
 
 .body {
     font-family: "Lato", sans-serif;
