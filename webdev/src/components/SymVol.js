@@ -184,18 +184,7 @@ class SymVol extends Component {
                 <div className='graph-div'>
                     <svg width="1600" height="500" />
                 </div>
-                <div
-                    className="ag-theme-balham"
-                    style={{
-                        height: '500px',
-                        width: '1700px' }}
-                >
-                    <AgGridReact
-                        columnDefs={this.state.columnDefs}
-                        //rowData={this.state.rowData}>
-                        rowData={this.state.dataStore}>
-                    </AgGridReact>
-                </div>
+
 
             </React.Fragment>
         );
