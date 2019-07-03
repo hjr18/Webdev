@@ -24,7 +24,7 @@ class SymVol extends Component {
     };
 
     options = {
-        url: 'https://192.168.1.57:8140/executeQuery',
+        url: 'https://localhost:8140/executeQuery',
         auth: {
             username: 'user',
             password: 'pass',
@@ -74,11 +74,11 @@ class SymVol extends Component {
     draw(){
         const svg = d3.select("svg"),
             margin = {top: 50, right: 20, bottom: 50, left: 80},
-            width = 960 - margin.left - margin.right,
+            width = 1600 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom,
             g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        const x = d3.scaleLinear()
+        const x = d3.scaleTime()
             .range([0,width]);
 
         const y = d3.scaleLinear()
@@ -134,8 +134,8 @@ class SymVol extends Component {
 
         return (
             <React.Fragment>
-                <div>
-                    SymVol
+                <div className="nav-button-holder">
+
                 </div>
                 <div>
                     <button className='nav-buttons' onClick={() =>this.changeRange("=.z.d-1")}>
@@ -182,7 +182,7 @@ class SymVol extends Component {
 
                 </div>
                 <div className='graph-div'>
-                    <svg width="960" height="500" />
+                    <svg width="1600" height="500" />
                 </div>
                 <div
                     className="ag-theme-balham"

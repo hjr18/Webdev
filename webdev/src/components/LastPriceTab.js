@@ -20,14 +20,14 @@ class LastPriceTab extends Component {
                 headerName: "Last Price", field: "price", sortable: true, filter: true, resizable: true, cellStyle:(params)=> {
                     var colour = params.node.data.colour[0];
                         if (colour === 1) {
-                            console.log("Red");
+                            //console.log("Red");
                             return {
 
                                     background: 'rgba(255,0,0,0.75)'
 
                             };
                         } else if (colour === 2) {
-                            console.log("Green");
+                            //console.log("Green");
                             return {
 
                                 background: 'rgba(0,255,0,0.75)'
@@ -45,7 +45,7 @@ class LastPriceTab extends Component {
     };
 
     options = {
-        url: 'https://192.168.1.57:8139/executeQuery',
+        url: 'https://localhost:8139/executeQuery',
         auth: {
             username: 'user',
             password: 'pass',

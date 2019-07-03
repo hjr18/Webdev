@@ -5,6 +5,7 @@
   "dependencies": {
     "chart.js": "^2.8.0",
     "d3": "^5.9.2",
+    "moment-timezone": "^0.5.25",
     "rd3": "^0.8.1",
     "react": "^16.8.6",
     "react-bootstrap-table": "^4.3.1",

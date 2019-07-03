@@ -24,7 +24,7 @@ class MostTradeSym extends Component {
     };
 
     options = {
-        url: 'https://192.168.1.57:8140/executeQuery',
+        url: 'https://localhost:8140/executeQuery',
         auth: {
             username: 'user',
             password: 'pass',

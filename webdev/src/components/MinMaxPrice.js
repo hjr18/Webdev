@@ -27,7 +27,7 @@ class MinMaxPrice extends Component {
     };
 
     options = {
-        url: 'https://192.168.1.140:8139/executeQuery',
+        url: 'https://localhost:8139/executeQuery',
         auth: {
             username: 'user',
             password: 'pass',
