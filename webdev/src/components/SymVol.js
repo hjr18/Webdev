@@ -18,7 +18,8 @@ class SymVol extends Component {
             }],
             dataStore:[],
                 symbol: 'AAPL',
-                range: '=.z.d-1'
+                range: '=.z.d-1',
+                time: `Day`
         };
         this.updateData();
     };
@@ -68,6 +69,13 @@ class SymVol extends Component {
     changeRange = (range) => {
         console.log(range);
         this.setState({range: range},()=>this.updateData());
+        if (this.setState.range === "=.z.d-1"){
+            this.setState({time: "Day"},()=>this.updateData());
+        } else if (this.setState.range === '>.z.d-8') {
+            this.setState({time: "Week"},()=>this.updateData());
+        } else if (this.setState.range === '>.Q.addmonths[.z.d;-1]-1') {
+            this.setState({time: "Month"},()=>this.updateData());
+        }
         //this.updateData();
     };
 
@@ -113,7 +121,7 @@ class SymVol extends Component {
             .attr("dy", "0.71em")
             .style("text-anchor", "end")
             .style('font-size','14')
-            .text("Standard Deviation");
+            .text("Volatility ");
 
 
         //plot the x axis legend
@@ -121,7 +129,25 @@ class SymVol extends Component {
             .attr("transform","translate(" + (width/2) + " ," + (height + margin.top + 40) + ")")
             .style("text-anchor", "middle")
             .style('font-size','14')
-            .text("Time");
+            .text("Time GMT");
+
+        // add the X gridlines
+        g.append("g")
+            .attr("class", "grid")
+            .attr("transform", "translate(0," + height + ")")
+            .call(make_x_grid_lines()
+                .tickSize(-height)
+                .tickFormat("")
+            )
+
+        // add the Y gridlines
+        g.append("g")
+            .attr("class", "grid")
+            .call(make_y_gridlines()
+                .tickSize(-width)
+                .tickFormat("")
+            )
+
 // Plot the Line
         g.append("path")
             .datum(this.state.dataStore)
@@ -180,6 +206,9 @@ class SymVol extends Component {
                         MSFT
                     </button>
 
+                </div>
+                <div className="whitebk">
+                    A  time series graph showing the volatility for {this.state.symbol}
                 </div>
                 <div className='graph-div'>
                     <svg width="1600" height="500" />

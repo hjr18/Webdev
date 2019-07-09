@@ -7,6 +7,7 @@ import 'chart.js'
 import * as d3 from 'd3';
 import moment from 'moment-timezone'
 
+
 import './Table.css';
 
 export function timestampPls(data) {
@@ -27,7 +28,8 @@ class Table1 extends Component {
       this.dataStore=[];
       this.state = {
         dataStore:[],
-          symbol: 'AAPL'
+          symbol: 'AAPL',
+
     };
     this.updateData();
   };
@@ -58,7 +60,7 @@ class Table1 extends Component {
     }
 
    updateData() {
-       this.getData(`-35000#select time,avgs price from trade where sym=\`${this.state.symbol}`)
+       this.getData(`select time,avgs price from trade where sym=\`${this.state.symbol}`)
            .then(data => {
                if (data.success) {
                    console.log("data success=true");
@@ -71,13 +73,14 @@ class Table1 extends Component {
    }
 
    changeSym = (sym) => {
-           console.log(sym);
+           //console.log(sym);
            this.setState({symbol: sym});
        this.updateData();
     };
 
     componentDidMount() {
            this.interval= setInterval(() =>  this.updateData(), 1000);
+
        }
 
     componentWillUnmount() {
@@ -87,7 +90,13 @@ class Table1 extends Component {
 
 
     draw(){
-        const svg = d3.select("svg"),
+        const svg = d3.select("svg").append("svg")
+                .attr("width", "100%")
+                .attr("height", "100%")
+                .call(d3.zoom().on("zoom", function () {
+                    svg.attr("transform", d3.event.transform)
+                }))
+                .append("g"),
             margin = {top: 50, right: 20, bottom: 50, left: 80},
             width = 1600 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom,
@@ -137,7 +146,25 @@ class Table1 extends Component {
         svg.append("text")
             .attr("transform","translate(" + (width/2) + " ," + (height + margin.top + 40) + ")")
             .style("text-anchor", "middle")
-            .text("Time");
+            .text("Time GMT");
+
+        // add the X gridlines
+        g.append("g")
+            .attr("class", "grid")
+            .attr("transform", "translate(0," + height + ")")
+            .call(make_x_grid_lines()
+                .tickSize(-height)
+                .tickFormat("")
+            )
+
+        // add the Y gridlines
+        g.append("g")
+            .attr("class", "grid")
+            .call(make_y_gridlines()
+                .tickSize(-width)
+                .tickFormat("")
+            )
+
 
 // Plot the Line
         g.append("path")
@@ -148,11 +175,10 @@ class Table1 extends Component {
     }
 
 render() {
+
     return (
 	<React.Fragment>
-        {/*<div>
-        A time series graph showing the running average price for each sym for the day
-    </div>*/}
+
 
             <div className="nav-button-holder">
                 <button className='nav-buttons' onClick={() =>this.changeSym("AAPL")}>
@@ -187,6 +213,9 @@ render() {
                 </button>
 
             </div>
+        <div className="whitebk">
+            A time series graph showing the running average price for {this.state.symbol}
+        </div>
       <div className='graph-div'>
           <svg width="1600" height="500" />
 

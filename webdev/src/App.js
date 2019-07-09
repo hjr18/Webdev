@@ -47,13 +47,12 @@ class App extends Component {
 			<img className="aquaq-logo" src={require("./images/aquaq-logo.png")} />
 		</div>*/}
 
-	
 	<div className="nav-button-holder" >
       <Tabs activeTab={{ id: "Table1" }} style={styles} >
 
 	  <Tabs.Tab id="Table1" title="RDB Price Data" className="nav-buttons">
 		  	<Table1 />
-		<div>
+		<div className="whitebk">
 			<div className='rowC'>
 				<MinMaxPrice />
 			<div style={{
@@ -88,6 +87,7 @@ class App extends Component {
 
 	  </Tabs>
 	</div>
+
 	  </React.Fragment>
     );
   }

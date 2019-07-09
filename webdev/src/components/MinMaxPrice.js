@@ -51,7 +51,7 @@ class MinMaxPrice extends Component {
 
 
     updateData() {
-        this.getData("select minimum:.Q.f[2;min avgs price],maximum:.Q.f[2;max avgs price] by sym from trade")
+        this.getData("select minimum:.Q.f[2;min price],maximum:.Q.f[2;max price] by sym from trade")
             .then(data => {
                 if (data.success) {
                     console.log("data success=true");
@@ -74,6 +74,10 @@ class MinMaxPrice extends Component {
 
         return (
             <React.Fragment>
+                <div className="rocD">
+                <div>
+                    Minimum and Maximum Price by Sym
+                </div>
 
                 <div
                     className="ag-theme-balham"
@@ -86,6 +90,7 @@ class MinMaxPrice extends Component {
                         //rowData={this.state.rowData}>
                         rowData={this.state.dataStore}>
                     </AgGridReact>
+                </div>
                 </div>
 
             </React.Fragment>
