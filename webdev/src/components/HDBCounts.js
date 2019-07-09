@@ -23,7 +23,8 @@ class HDBCounts extends Component {
             }],
 
             dataStore:[],
-            symbol: ''
+            symbol: '',
+            symName: 'ALL'
 
 
         }
@@ -34,6 +35,7 @@ class HDBCounts extends Component {
         console.log(sym);
         this.setState({symbol: sym},()=>this.updateData());
         this.setState({symbol: sym},()=>this.handleSymChange());
+        this.setState({symName: sym.replace(',sym=`',' ')})
 
     };
 
@@ -110,6 +112,11 @@ class HDBCounts extends Component {
 
 
 
+        const make_y_gridlines = () => {
+            return d3.axisLeft(yScale)
+                .ticks(10)
+        }
+
 
 
         const xScale = d3.scaleBand()
@@ -149,6 +156,14 @@ class HDBCounts extends Component {
             .style("text-anchor", "middle")
             .text("Sym");
 
+
+        // add the Y gridlines
+        g.append("g")
+            .attr("class", "grid")
+            .call(make_y_gridlines()
+                .tickSize(-width)
+                .tickFormat("")
+            )
 
         g.selectAll()
             .data(this.state.dataStore)
@@ -207,11 +222,18 @@ class HDBCounts extends Component {
                     </button>
 
                 </div>
+                <div className="whitebk">
+                    A time series graph showing the running average price for {this.state.symName}
+                </div>
                 <div className="rowC">
                 <div className='graph-div'>
                     <svg width="960" height="500" />
 
                 </div>
+                    <div className="rowD">
+                    <div>
+                        Count by Date
+                    </div>
                 <div
                     className="ag-theme-balham"
                     style={{
@@ -225,7 +247,7 @@ class HDBCounts extends Component {
                     </AgGridReact>
                 </div>
                 </div>
-
+                </div>
             </React.Fragment>
         );
     }

@@ -30,14 +30,14 @@ class LastPriceTab extends Component {
                         //console.log("Red");
                         return {
 
-                            background: 'rgba(255,0,0,0.75)'
+                            background: 'rgba(255,179,179,0.75)'
 
                         };
                     } else if (colour === 2) {
                         //console.log("Green");
                         return {
 
-                            background: 'rgba(0,255,0,0.75)'
+                            background: 'rgba(191,255,179,0.75)'
 
 
                         };
@@ -121,6 +121,9 @@ class LastPriceTab extends Component {
 
         return (
             <React.Fragment>
+                <div>
+                    Last Price by Sym
+                </div>
                 <div
                     className="ag-theme-balham"
                     style={{

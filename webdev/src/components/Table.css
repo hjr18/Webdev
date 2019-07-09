@@ -10,6 +10,18 @@ path.line
     stroke: #8c98f5;
 }
 
+
+.grid line {
+    stroke: lightgrey;
+    stroke-opacity: 0.7;
+    shape-rendering: crispEdges;
+}
+
+.grid path {
+    stroke-width: 0;
+}
+
+
 .Table-header {
     background-color: #ccc;
     color: blue;
@@ -31,7 +43,7 @@ path.line
 }
 
 .graph-div{
-    background-color: #FFFFFF;
+    background-color: #F7F7F7;
     fill: #8c98f5;
 }
 

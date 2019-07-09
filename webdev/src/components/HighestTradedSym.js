@@ -70,9 +70,10 @@ class HighestTradedSym extends Component {
 
         return (
             <React.Fragment>
-                <div>
+                <div className="whitebk">
                     Highest Traded Sym
                 </div>
+                <div className="whitebk">
                 <div
                     className="ag-theme-balham"
                     style={{
@@ -84,6 +85,7 @@ class HighestTradedSym extends Component {
                         //rowData={this.state.rowData}>
                         rowData={this.state.dataStore}>
                     </AgGridReact>
+                </div>
                 </div>
 
             </React.Fragment>

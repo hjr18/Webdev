@@ -101,7 +101,7 @@ class VolumeBySymTab extends Component {
     }
 
     componentDidMount() {
-        this.interval= setInterval(() =>  this.updateData(), 5000);
+        this.interval= setInterval(() =>  this.updateData(), 2000);
     }
 
     componentWillUnmount() {
@@ -121,6 +121,12 @@ class VolumeBySymTab extends Component {
 
 
 
+        const make_y_gridlines = () => {
+            return d3.axisLeft(yScale)
+                .ticks(10)
+        }
+
+
 
 
         const xScale = d3.scaleBand()
@@ -134,7 +140,7 @@ class VolumeBySymTab extends Component {
         //y.domain(d3.extent(this.state.dataStore, function(d) { return d.size; }));
         const yScale = d3.scaleLinear()
             .range([height, 0])
-            .domain([0.95*this.state.min, 1.05*this.state.max]);
+            .domain([0.995*this.state.min, 1.005*this.state.max]);
 //plot the x axis
 
 //plot the y axis
@@ -161,6 +167,15 @@ class VolumeBySymTab extends Component {
             .text("Sym");
 
 
+
+        // add the Y gridlines
+        g.append("g")
+            .attr("class", "grid")
+            .call(make_y_gridlines()
+                .tickSize(-width)
+                .tickFormat("")
+            )
+
         g.selectAll()
             .data(this.state.dataStore)
             .enter()
@@ -177,7 +192,7 @@ class VolumeBySymTab extends Component {
 
         return (
             <React.Fragment>
-                <div className="nav-button-holder">
+                <div className="whitebk">
                     Volume by Sym
                 </div>
                 <div className='graph-div'>
